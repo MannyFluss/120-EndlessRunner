@@ -17,10 +17,10 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // background sprite
-        this.sidewalk = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
+        this.sidewalk = this.add.tileSprite(0, 0, 100, game.config.height, 'sidewalk').setOrigin(0,0);
 
         // player sprite
-        this.player = new Player(this, game.config.width / 2 - 16, game.config.height - 64, 'player').setOrigin(0,0);
+        this.player = new Player(this, this.sidewalk.width / 2 - 16, game.config.height - 64, 'player').setOrigin(0,0);
 
         // container of enemies
         this.walkers = [];
