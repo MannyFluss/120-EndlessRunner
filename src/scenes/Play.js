@@ -93,10 +93,12 @@ class Play extends Phaser.Scene {
 
     // basic collision checker
     checkCollision(player, walker) {
+        let collisionGenerosity = 20;
+
         if (player.x < walker.x + walker.width &&
             player.x + player.width > walker.x &&
             player.y < walker.y + walker.height &&
-            player.height + player.y > walker.y) {
+            player.height + player.y > walker.y + collisionGenerosity) {
             return true;
         } else {
             return false;
