@@ -7,7 +7,9 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('walker', 'assets/walker.png');
+        this.load.image('walker', 'assets/raccoon.png');
+        let raccoonResize = 3;
+        this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 4});
     }
 
     create() {
@@ -22,12 +24,26 @@ class Play extends Phaser.Scene {
         // player sprite
         this.player = new Player(this, this.sidewalk.mid).setOrigin(0,0);
 
+        // racoon animation config
+        this.anims.create({
+            key: 'raccoon_walk',
+            frames: this.anims.generateFrameNumbers('raccoon', { start: 0, end: 4, first: 0}),
+            frameRate: 4,
+            repeat: -1,
+            showOnStart: true,
+            skipMissedFrame: true,
+            hideOnComplete: false,
+        });
+
         // container of enemies
         this.walkers = [];
 
         // send first two enemies immediately
         this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
         this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
+
+        for (let walker of this.walkers)
+            walker.anims.play('raccoon_walk');
 
         this.gameOver = false;
 
@@ -126,6 +142,12 @@ class Play extends Phaser.Scene {
                 this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
                 this.previousOne = 2;
             }
+        }
+
+        // play walk animation
+        for (let walker of this.walkers) {
+            if (walker.anims)
+                walker.anims.play('raccoon_walk');
         }
     }
 }
