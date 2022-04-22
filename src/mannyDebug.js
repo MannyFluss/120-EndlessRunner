@@ -6,12 +6,16 @@ class mannyDebug extends Phaser.Scene
     }
     preload()
     {
-        this.load.image('temp',"./assets/rocket.png");
+        this.load.image('temp',"./assets/phoneAssets/phone.png");
+        this.load.image('message','./assets/phoneAssets/text.png')
+        
     }
 
     create()
     {
+        
         this.thePhone = new Phone(this, 300, 300 ,'temp');
+        //this.dbgMsg = new Message(this, 200,200, true, "sample text");
     }
 
 }

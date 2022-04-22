@@ -9,10 +9,19 @@ class Phone extends Phaser.GameObjects.Sprite
         this.active = true //if the phone is on screen, true.
         this.playerKeyInput = "sample message";
         this.currentResponseMessage = "sample message"; //the current msg the player needs to send
+        this.create();
     }
-    
+    preload()
+    {
+        this.load('message','./assets/phoneAssets/text.png')
+    }
 
-
+    create()
+    {
+        console.log("test")
+        const testMessage = new Message(this,0,0,true,"this is a sample message");
+        this.add.existing(testMessage);
+    }
     resetResponseMessage()
     {
         this.currentResponseMessage = "new message"
