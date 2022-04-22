@@ -1,9 +1,12 @@
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
+    width: 432,
     height: 480,
-    scene : [mannyDebug]
-  }
+    scene : [Play, mannyDebug]
+}
+
+// declare keys
+let keyLEFT, keyRIGHT;
 
 // set UI sizes
 let game = new Phaser.Game(config);
