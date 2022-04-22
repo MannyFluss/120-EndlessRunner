@@ -15,6 +15,7 @@ class mannyDebug extends Phaser.Scene
     {
         
         this.thePhone = new Phone(this, 300, 300 ,'temp');
+        this.containerTest = new PhoneContainer(this, 100, 100);
         //this.dbgMsg = new Message(this, 200,200, true, "sample text");
     }
 
