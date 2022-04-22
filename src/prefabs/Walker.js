@@ -1,9 +1,9 @@
 class Walker extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y=-32, texture='walker', frame) {
         super(scene, x, y, texture, frame);
-
         scene.add.existing(this);
+        
         this.moveSpeed = 2;
     }
 

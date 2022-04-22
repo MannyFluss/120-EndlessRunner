@@ -17,16 +17,16 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // background sprite
-        this.sidewalk = this.add.tileSprite(0, 0, 100, game.config.height, 'sidewalk').setOrigin(0,0);
+        this.sidewalk = new Sidewalk(this, 0, 0, 100, game.config.height, 'sidewalk').setOrigin(0,0);
 
         // player sprite
-        this.player = new Player(this, this.sidewalk.width / 2 - 16, game.config.height - 64, 'player').setOrigin(0,0);
+        this.player = new Player(this, this.sidewalk.mid).setOrigin(0,0);
 
         // container of enemies
         this.walkers = [];
 
         // send first two enemies immediately
-        this.walkers.push(new Walker(this, 0, -32, 'walker').setOrigin(0,0));
+        this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
         this.walkers.push(new Walker(this, 68, -32, 'walker').setOrigin(0,0));
 
         this.gameOver = false;
@@ -49,13 +49,13 @@ class Play extends Phaser.Scene {
         this.spawnTimer += delta;
 
         // once spawn reached, spawn in enemies and reset timer
-        if(this.spawnTimer >= this.spawnRate) {
+        if (this.spawnTimer >= this.spawnRate) {
             this.walkerRespawn();
             this.spawnTimer = 0;
         }
 
         // iterate through enemy container and update everything
-        if(!this.gameOver) {
+        if (!this.gameOver) {
             this.player.update();
             for (let i = 0; i < this.walkers.length; i++) {
                 this.walkers[i].update();
@@ -63,8 +63,8 @@ class Play extends Phaser.Scene {
         }
 
         // iterate through enemy container to check for collisions and, if so, death
-        for(let i = 0; i < this.walkers.length; i++) {
-            if(this.checkCollision(this.player, this.walkers[i])) {
+        for (let i = 0; i < this.walkers.length; i++) {
+            if (this.checkCollision(this.player, this.walkers[i])) {
                 // this.player.destroy();
                 // this.gameOver = true;
                 this.scene.restart();
@@ -78,7 +78,7 @@ class Play extends Phaser.Scene {
             player.x + player.width > walker.x &&
             player.y < walker.y + walker.height &&
             player.height + player.y > walker.y) {
-                return true;
+            return true;
         } else {
             return false;
         }

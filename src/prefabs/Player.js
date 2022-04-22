@@ -1,47 +1,32 @@
 class Player extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y = game.config.height - 64, texture = 'player', frame) {
         super(scene, x, y, texture, frame);
-
         scene.add.existing(this);
     }
 
     update() {
 
         // if not on the leftmost lane, move to the lane on the left
-        if(Phaser.Input.Keyboard.JustDown(keyLEFT) &&
-           (this.centerLane(this) || this.rightLane(this))) {
-               this.x -= 34;
+        if (Phaser.Input.Keyboard.JustDown(keyLEFT) && !this.inLeftLane()) {
+            this.x -= this.scene.sidewalk.laneDistance;
         }
 
         // if not on the rightmost lane, move to the lane on the right
-        if(Phaser.Input.Keyboard.JustDown(keyRIGHT) &&
-           (this.leftLane(this) || this.centerLane(this))) {
-               this.x += 34;
+        if (Phaser.Input.Keyboard.JustDown(keyRIGHT) && !this.inRightLane()) {
+            this.x += this.scene.sidewalk.laneDistance;
         }
     }
 
-    leftLane(player) {
-        if (player.x == 0) {
-            return true;
-        } else {
-            return false;
-        }
+    inLeftLane() {
+        return this.x === this.scene.sidewalk.left;
     }
 
-    centerLane(player) {
-        if (player.x == 34) {
-            return true;
-        } else {
-            return false;
-        }
+    inMidLane() {
+        return this.x === this.scene.sidewalk.mid;
     }
 
-    rightLane(player) {
-        if (player.x == 68) {
-            return true;
-        } else {
-            return false;
-        }
+    inRightLane() {
+        return this.x === this.scene.sidewalk.right;
     }
 }
