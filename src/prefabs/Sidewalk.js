@@ -3,8 +3,8 @@ class Sidewalk extends Phaser.GameObjects.TileSprite {
         super(scene, x, y, width, height, texture, frame);
         scene.add.existing(this);
 
-        this.laneDistance = 34;
-        this.left = 290;
+        this.laneDistance = 45;
+        this.left = 305;
         this.mid = this.left + this.laneDistance;
         this.right = this.mid + this.laneDistance;
     }

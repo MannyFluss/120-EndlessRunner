@@ -1,6 +1,6 @@
 let config = {
     type: Phaser.CANVAS,
-    width: 640,
+    width: 432,
     height: 480,
     scene : [Play, mannyDebug]
 }

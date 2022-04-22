@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     // preload assets
     preload() {
-        this.load.image('sidewalk', 'assets/pixel-street-from-above.png');
+        this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('walker', 'assets/walker.png');
     }
