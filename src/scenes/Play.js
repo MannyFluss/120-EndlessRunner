@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     // preload assets
     preload() {
-        this.load.image('sidewalk', 'assets/sidewalk.png');
+        this.load.image('sidewalk', 'assets/pixel-street-from-above.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('walker', 'assets/walker.png');
     }
@@ -17,7 +17,7 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // background sprite
-        this.sidewalk = new Sidewalk(this, 0, 0, 100, game.config.height, 'sidewalk').setOrigin(0,0);
+        this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
 
         // player sprite
         this.player = new Player(this, this.sidewalk.mid).setOrigin(0,0);
@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
 
         // send first two enemies immediately
         this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-        this.walkers.push(new Walker(this, 68, -32, 'walker').setOrigin(0,0));
+        this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
 
         this.gameOver = false;
 
@@ -44,6 +44,9 @@ class Play extends Phaser.Scene {
     // need timer as an argument to get access to delta
     // since delta is the second argumnt
     update(timer, delta) {
+
+        // scroll sidewalk
+        this.sidewalk.tilePositionY -= 1.5;
 
         // delta is innate Phaser thing that counts milliseconds between updates
         this.spawnTimer += delta;
@@ -98,29 +101,29 @@ class Play extends Phaser.Scene {
 
             // 3 patterns of sending 2 enemies
             if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, 0, -32, 'walker').setOrigin(0,0));
-                this.walkers.push(new Walker(this, 34, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
                 this.previousOne = 0;
             } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, 34, -32, 'walker').setOrigin(0,0));
-                this.walkers.push(new Walker(this, 68, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
                 this.previousOne = 1;
             } else {
-                this.walkers.push(new Walker(this, 0, -32, 'walker').setOrigin(0,0));
-                this.walkers.push(new Walker(this, 68, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
                 this.previousOne = 2;
             }
         } else {
 
             // 3 patterns of sending 1 enemy
             if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, 0, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
                 this.previousOne = 0;
             } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, 34, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
                 this.previousOne = 1;
             } else {
-                this.walkers.push(new Walker(this, 68, -32, 'walker').setOrigin(0,0));
+                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
                 this.previousOne = 2;
             }
         }
