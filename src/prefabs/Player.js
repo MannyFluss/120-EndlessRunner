@@ -3,19 +3,15 @@ class Player extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y = game.config.height - 64, texture = 'player', frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
+
+        this.movingLanes = false;
+        this.sfxLaneChange = scene.sound.add('sfx_lanechange');
     }
 
-    update() {
-
-        // if not on the leftmost lane, move to the lane on the left
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT) && !this.inLeftLane()) {
-            this.x -= this.scene.sidewalk.laneDistance;
-        }
-
-        // if not on the rightmost lane, move to the lane on the right
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT) && !this.inRightLane()) {
-            this.x += this.scene.sidewalk.laneDistance;
-        }
+    update(delta, timer) {
+        this.checkRightLane();
+        this.checkLeftLane();
+        this.changeLanes();
     }
 
     inLeftLane() {
@@ -28,5 +24,44 @@ class Player extends Phaser.GameObjects.Sprite {
 
     inRightLane() {
         return this.x === this.scene.sidewalk.right;
+    }
+
+    checkLeftLane() {
+        // if not on the leftmost lane, move to the lane on the left
+        if ((Phaser.Input.Keyboard.JustDown(keyLEFT) || this.bufferLeft) && !this.inLeftLane() && !this.movingLanes) {
+            this.distNeeded = - this.scene.sidewalk.laneDistance;
+            this.movingLanes = true;
+            this.distTraveled = 0;
+            this.bufferLeft = false;
+            this.sfxLaneChange.play();
+        }
+    }
+
+    checkRightLane() {
+        // if not on the rightmost lane, move to the lane on the right
+        if ((Phaser.Input.Keyboard.JustDown(keyRIGHT) || this.bufferRight) && !this.inRightLane() && !this.movingLanes) {
+            this.distNeeded = this.scene.sidewalk.laneDistance;
+            this.movingLanes = true;
+            this.distTraveled = 0;
+            this.bufferRight = false;
+            this.sfxLaneChange.play();
+        }
+    }
+
+    changeLanes() {
+        if(this.movingLanes == true) {
+            this.x += (this.distNeeded / 15);
+            this.distTraveled += (this.distNeeded / 15);
+            if((this.distTraveled / this.distNeeded >= 0.8) && !this.bufferLeft && !this.bufferRight) {
+                if (keyLEFT.isDown && (this.x >= this.scene.sidewalk.mid)) {
+                    this.bufferLeft = true;
+                } else if (keyRIGHT.isDown && (this.x <= this.scene.sidewalk.mid)) {
+                    this.bufferRight = true;
+                }
+            }
+            if(this.distTraveled == this.distNeeded) {
+                this.movingLanes = false;
+            }
+        }
     }
 }

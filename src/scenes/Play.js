@@ -5,6 +5,8 @@ class Play extends Phaser.Scene {
 
     // preload assets
     preload() {
+        this.load.audio('sfx_lanechange', 'assets/placeholder_lanechange.wav');
+        this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('walker', 'assets/raccoon.png');
@@ -55,6 +57,33 @@ class Play extends Phaser.Scene {
 
         // previous pattern chosen
         this.previousOne = 2;
+
+        this.distanceTraveled = 0;
+
+        let distanceConfig = {
+            fontFamily: 'Helvetica',
+            fontSize: '25px',
+            color: '#000000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+        this.distanceText = this.add.text(0, 0, "Distance Traveled: " + this.distanceTraveled + " m", distanceConfig);
+
+        let highScoreConfig = {
+            fontFamily: 'Helvetica',
+            fontSize: '25px',
+            color: '#000000',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+        this.highScoreText = this.add.text(0, this.distanceText.height, "Farthest Traveled: " + highScore + " m", highScoreConfig);
+
     }
 
     // need timer as an argument to get access to delta
@@ -66,6 +95,8 @@ class Play extends Phaser.Scene {
 
         // delta is innate Phaser thing that counts milliseconds between updates
         this.spawnTimer += delta;
+        this.distanceTraveled += delta / 250;
+        this.distanceText.text = "Distance Traveled: " + Math.round(this.distanceTraveled) + " m";
 
         // once spawn reached, spawn in enemies and reset timer
         if (this.spawnTimer >= this.spawnRate) {
@@ -84,8 +115,10 @@ class Play extends Phaser.Scene {
         // iterate through enemy container to check for collisions and, if so, death
         for (let i = 0; i < this.walkers.length; i++) {
             if (this.checkCollision(this.player, this.walkers[i])) {
-                // this.player.destroy();
-                // this.gameOver = true;
+                this.sound.play('sfx_bump');
+                if(this.distanceTraveled > highScore) {
+                    highScore = Math.round(this.distanceTraveled);
+                }
                 this.scene.restart();
             }
         }
@@ -111,7 +144,6 @@ class Play extends Phaser.Scene {
         // determines which of 3 patterns will be chosen
         do {
             this.whichOne = Math.round(Math.random() * 2);
-            console.log(this.whichOne, this.previousOne)
         } while (this.whichOne == this.previousOne);
 
         // determines whether to send 1 or 2 enemies
