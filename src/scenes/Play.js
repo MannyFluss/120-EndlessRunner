@@ -8,9 +8,16 @@ class Play extends Phaser.Scene {
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('walker', 'assets/walker.png');
+        this.load.image('message','./assets/phoneAssets/text.png');
     }
 
     create() {
+
+        //initalizePhone
+
+
+
+
 
         // movement keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);

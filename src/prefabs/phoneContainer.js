@@ -4,7 +4,12 @@ class PhoneContainer extends Phaser.GameObjects.Container
     {
         super(scene,x,y,children);
 
-        const testMessage = new Message(this,0,0,true,"this is a sample message");
-        this.add(testMessage)
+
+        
+    }
+
+    add(object)
+    {
+        super.add(object);
     }
 }

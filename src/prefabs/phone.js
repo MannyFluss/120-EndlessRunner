@@ -11,10 +11,6 @@ class Phone extends Phaser.GameObjects.Sprite
         this.currentResponseMessage = "sample message"; //the current msg the player needs to send
         this.create();
     }
-    preload()
-    {
-        this.load('message','./assets/phoneAssets/text.png')
-    }
 
     create()
     {
