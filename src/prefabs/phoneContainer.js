@@ -9,6 +9,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
     constructor(scene,x,y)
     {
         super(scene,x,y);
+        scene.add.existing(this);
         this.wordList = [
             "word","is","here","gamer","a",
             "sample","text","the","help","running",
@@ -16,25 +17,21 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "and","because","phone"
         ]
         
-        scene.add.existing(this);
-        console.log(this.createNewMessage());
+        
         this.active = true;
         //these get assigned to text
         this.sceneRef = scene;
         this.containerRef = scene.add.container(this.x, this.y);
-        this.ghostTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,"").setOrigin(.5,.5);
-        this.playerTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,"b").setOrigin(.5,.5);
 
-        this.add([this.containerRef,this.ghostTextDisplay,this.playerTextDisplay]);
         //this.playerTextDisplay.text = ""
         this.setSize(300,300);
         this.setInteractive();
         scene.input.setDraggable(this);
-
-
         this.playerText = "";
-        this.ghostText = "b";
-
+        this.ghostText = this.createNewMessage();
+        this.playerTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,this.ghostText).setOrigin(.5,.5);
+        this.ghostTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,"").setOrigin(.5,.5);
+        this.add([this.containerRef,this.ghostTextDisplay,this.playerTextDisplay]);
 
         scene.input.keyboard.on('keydown', (event) => {
             this.handleInput(event.key);
@@ -110,9 +107,9 @@ class PhoneContainer extends Phaser.GameObjects.Container
         {
             if (this.playerText==this.ghostText)
             {
-                //console.log("match");
+                
                 this.updateTextMessage(this.containerRef,this.playerText,true);
-                this.ghostText = "a"; //insert message generator here
+                this.ghostText = this.createNewMessage(); //insert message generator here
             }
             this.playerText = "";
 
@@ -140,11 +137,11 @@ class PhoneContainer extends Phaser.GameObjects.Container
             if (i == wordCount-1)
             {
                 to_return = to_return + random_word + ".";
+                break;
             }else
             {
                 to_return = to_return + random_word + " ";
             }
-            
         }
 
         return to_return;
