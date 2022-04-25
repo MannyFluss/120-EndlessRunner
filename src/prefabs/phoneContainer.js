@@ -29,8 +29,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
         scene.input.setDraggable(this);
         this.playerText = "";
         this.ghostText = this.createNewMessage();
-        this.playerTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,this.ghostText).setOrigin(.5,.5);
-        this.ghostTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y,"").setOrigin(.5,.5);
+        this.playerTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y + 130,this.ghostText).setOrigin(.5,.5);
+        this.ghostTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y + 130,"").setOrigin(.5,.5);
         this.add([this.containerRef,this.ghostTextDisplay,this.playerTextDisplay]);
 
         scene.input.keyboard.on('keydown', (event) => {
@@ -107,7 +107,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
         {
             if (this.playerText==this.ghostText)
             {
-                
+
                 this.updateTextMessage(this.containerRef,this.playerText,true);
                 this.ghostText = this.createNewMessage(); //insert message generator here
             }
@@ -136,14 +136,14 @@ class PhoneContainer extends Phaser.GameObjects.Container
             let random_word = this.wordList[Math.floor(Math.random()*this.wordList.length)];
             if (i == wordCount-1)
             {
-                to_return = to_return + random_word + ".";
+                to_return = to_return + random_word;
                 break;
             }else
             {
                 to_return = to_return + random_word + " ";
             }
         }
-
+        
         return to_return;
     }
 
