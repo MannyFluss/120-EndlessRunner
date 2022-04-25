@@ -5,11 +5,15 @@ class Play extends Phaser.Scene {
 
     // preload assets
     preload() {
+
+
         this.load.audio('sfx_lanechange', 'assets/placeholder_lanechange.wav');
         this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('walker', 'assets/raccoon.png');
+
+        this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 4});
     }
@@ -22,6 +26,11 @@ class Play extends Phaser.Scene {
 
         // background sprite
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
+
+        //phone and its assets
+        this.thePhone = new Phone(this, 0, 0 ,'phoneTexture')
+        this.phoneInput = new PhoneContainer(this,50,50);
+        this.phoneInput.containerRef.add(this.thePhone);
 
         // player sprite
         this.player = new Player(this, this.sidewalk.mid).setOrigin(0,0);
