@@ -9,8 +9,15 @@ class PhoneContainer extends Phaser.GameObjects.Container
     constructor(scene,x,y)
     {
         super(scene,x,y);
-        scene.add.existing(this);
+        this.wordList = [
+            "word","is","here","gamer","a",
+            "sample","text","the","help","running",
+            "establish","monolithic","best","or",
+            "and","because","phone"
+        ]
         
+        scene.add.existing(this);
+        console.log(this.createNewMessage());
         this.active = true;
         //these get assigned to text
         this.sceneRef = scene;
@@ -122,10 +129,25 @@ class PhoneContainer extends Phaser.GameObjects.Container
     isLetter(str) {
         return str.length === 1 && str.match(/[a-z]/i);
       }
-
-    checkMatch()
+    //
+    
+    createNewMessage(wordCount=3)
     {
+        let to_return = "";
+        for(let i=0;i<wordCount;i++)
+        {
+            let random_word = this.wordList[Math.floor(Math.random()*this.wordList.length)];
+            if (i == wordCount-1)
+            {
+                to_return = to_return + random_word + ".";
+            }else
+            {
+                to_return = to_return + random_word + " ";
+            }
+            
+        }
 
+        return to_return;
     }
 
 }
