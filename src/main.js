@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 444,
     height: 480,
-    scene : [mannyDebug, Play ]
+    scene : [Play,mannyDebug ]
 }
 
 // declare keys

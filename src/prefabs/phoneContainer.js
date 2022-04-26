@@ -70,8 +70,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
         this.wordList = [
             "word","is","here","gamer","a",
             "sample","text","the","help","running",
-            "establish","monolithic","best","or",
-            "and","because","phone"
+            "establish","mono","best","or",
+            "and","because","phone","quinn","colorado"
         ]
         this.momMessages = [//max char len 29
             "sample mom message aaaaaa ",
@@ -168,15 +168,17 @@ class PhoneContainer extends Phaser.GameObjects.Container
                 this.playerText=this.playerText.slice(0, this.playerText.length - 1)
             }
         }
+        if (this.playerText==this.ghostText)
+        {
+            
+            this.updateTextMessage(this.containerRef,this.playerText,true);
+            this.momSendMessage();
+            this.ghostText = this.createNewMessage(); //insert message generator here
+            this.playerText = "";
+        }
         if (key == "Enter")
         {
-            if (this.playerText==this.ghostText)
-            {
-                
-                this.updateTextMessage(this.containerRef,this.playerText,true);
-                this.momSendMessage();
-                this.ghostText = this.createNewMessage(); //insert message generator here
-            }
+
             this.playerText = "";
 
         }
