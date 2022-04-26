@@ -51,7 +51,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             right: 2,
             left: 2
             },
-            //fixedWidth: 100
+            fixedWidth: 200
         }
         this.enterTextConfig = {
             fontFamily: 'Courier',
@@ -64,7 +64,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             right: 2,
             left: 2
             },
-            //fixedWidth: 100
+            fixedWidth: 200
         }
 
         this.wordList = [
