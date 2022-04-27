@@ -49,10 +49,13 @@ class Player extends Phaser.GameObjects.Sprite {
     }
 
     changeLanes() {
+        let laneChangeSpeed = 8;
+        let langeChangeBuffer = 1;
+
         if(this.movingLanes == true) {
-            this.x += (this.distNeeded / 15);
-            this.distTraveled += (this.distNeeded / 15);
-            if((this.distTraveled / this.distNeeded >= 0.8) && !this.bufferLeft && !this.bufferRight) {
+            this.x += (this.distNeeded / laneChangeSpeed);
+            this.distTraveled += (this.distNeeded / laneChangeSpeed);
+            if((this.distTraveled / this.distNeeded >= langeChangeBuffer) && !this.bufferLeft && !this.bufferRight) {
                 if (keyLEFT.isDown && (this.x >= this.scene.sidewalk.mid)) {
                     this.bufferLeft = true;
                 } else if (keyRIGHT.isDown && (this.x <= this.scene.sidewalk.mid)) {

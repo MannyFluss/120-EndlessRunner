@@ -3,17 +3,14 @@ class Play extends Phaser.Scene {
         super("play");
     }
 
-    // preload assets
     preload() {
-
-
         this.load.audio('sfx_lanechange', 'assets/placeholder_lanechange.wav');
         this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
+
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('walker', 'assets/raccoon.png');
-
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
+        
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 4});
     }
@@ -38,7 +35,7 @@ class Play extends Phaser.Scene {
         // racoon animation config
         this.anims.create({
             key: 'raccoon_walk',
-            frames: this.anims.generateFrameNumbers('raccoon', { start: 0, end: 4, first: 0}),
+            frames: this.anims.generateFrameNumbers('raccoon', { start: 0, end: 3, first: 0}),
             frameRate: 4,
             repeat: -1,
             showOnStart: true,
@@ -50,23 +47,27 @@ class Play extends Phaser.Scene {
         this.walkers = [];
 
         // send first two enemies immediately
-        this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-        this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-
-        for (let walker of this.walkers)
-            walker.anims.play('raccoon_walk');
+        this.spawnWalker(this.sidewalk.left);
+        this.spawnWalker(this.sidewalk.right);
 
         this.gameOver = false;
 
         // milliseconds between spawns
-        this.spawnRate = 1000;
+        this.spawnRate = 2000;
+
+        // fastest allowed spawn rate
+        this.minSpawnRate = 1000;
 
         // milliseconds passed since last spawn
         this.spawnTimer = 0;
 
-        // previous pattern chosen
-        this.previousOne = 2;
+        // the number of waves between difficulty increases
+        this.rampRate = 4;
 
+        // keep track of the number of waves
+        this.waveNumber = 0;
+
+        // track run distance
         this.distanceTraveled = 0;
 
         let distanceConfig = {
@@ -109,7 +110,7 @@ class Play extends Phaser.Scene {
 
         // once spawn reached, spawn in enemies and reset timer
         if (this.spawnTimer >= this.spawnRate) {
-            this.walkerRespawn();
+            this.spawnWave();
             this.spawnTimer = 0;
         }
 
@@ -147,50 +148,44 @@ class Play extends Phaser.Scene {
         }
     }
 
-    // respawns enemies
-    walkerRespawn(walkerL, walkerC, walkerR) {
+    // spawns a wave of enemies (1 or 2)
+    spawnWave() {
+    
+        // setup lanes
+        let lanes = [this.sidewalk.left, this.sidewalk.mid, this.sidewalk.right];
         
-        // determines which of 3 patterns will be chosen
-        do {
-            this.whichOne = Math.round(Math.random() * 2);
-        } while (this.whichOne == this.previousOne);
+        // spawn a first raccoon
+        let lane = Phaser.Math.RND.pick(lanes);
+        this.spawnWalker(lane);
 
-        // determines whether to send 1 or 2 enemies
-        if (Math.round(Math.random())) {
-
-            // 3 patterns of sending 2 enemies
-            if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.previousOne = 0;
-            } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 1;
-            } else {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 2;
-            }
-        } else {
-
-            // 3 patterns of sending 1 enemy
-            if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.previousOne = 0;
-            } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.previousOne = 1;
-            } else {
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 2;
-            }
+        // spawn a second raccoon
+        if (this.shouldSpawn2()) {
+            lane = Phaser.Math.RND.pick(lanes.filter((value) => {return value != lane}));
+            this.spawnWalker(lane);
         }
 
-        // play walk animation
-        for (let walker of this.walkers) {
-            if (walker.anims)
-                walker.anims.play('raccoon_walk');
+        // ramp up difficulty every few waves based on rampRate
+        if (this.timeToRamp()) {
+            this.spawnRate -= 200;
+            console.log(this.spawnRate);
         }
+
+        this.waveNumber++;
+    }
+
+    // spawns 1 walker in a specified lane
+    spawnWalker(lane) {
+        let walker = new Walker(this, lane).setOrigin(0,0);
+        this.walkers.push(walker);
+        walker.anims.play('raccoon_walk');
+    }
+
+    // decides whether to spawn 2 walkers
+    shouldSpawn2() {
+        return Math.round(Math.random());
+    }
+
+    timeToRamp() {
+        return (this.spawnRate > this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
     }
 }
