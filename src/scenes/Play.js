@@ -12,7 +12,8 @@ class Play extends Phaser.Scene {
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
         let raccoonResize = 3;
-        this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 4});
+        this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('red-panda', 'assets/red-panda-behind-sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
     }
 
     create() {
@@ -29,8 +30,20 @@ class Play extends Phaser.Scene {
         this.phoneInput = new PhoneContainer(this, 316, 120);
         this.phoneInput.containerRef.add(this.thePhone);
 
+        // player animation config
+        this.anims.create({
+            key: 'red-panda-walk',
+            frames: this.anims.generateFrameNumbers('red-panda', { start: 0, end: 7, first: 0}),
+            frameRate: 4,
+            repeat: -1,
+            showOnStart: true,
+            skipMissedFrame: true,
+            hideOnComplete: false,
+        });
+
         // player sprite
         this.player = new Player(this, this.sidewalk.mid).setOrigin(0,0);
+        this.player.anims.play('red-panda-walk');
 
         // racoon animation config
         this.anims.create({
