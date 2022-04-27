@@ -78,13 +78,6 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "if you dont respond big trouble",
             "hello this is pizza hut",
             "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
-            "what is your opinion on the mayor",
             "heyyyyyyyyyyyyyyyyyyyyy",
             "communism?",
             "this is your final final warning."
