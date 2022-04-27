@@ -145,7 +145,7 @@ class Play extends Phaser.Scene {
     }
 
     // spawns a wave of enemies (1 or 2)
-    spawnWave(walkerL, walkerC, walkerR) {
+    spawnWave() {
     
         // setup lanes
         let lanes = [this.sidewalk.left, this.sidewalk.mid, this.sidewalk.right];
