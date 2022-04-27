@@ -53,14 +53,21 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // milliseconds between spawns
-        this.spawnRate = 1000;
+        this.spawnRate = 2000;
+
+        // fastest allowed spawn rate
+        this.minSpawnRate = 1000;
 
         // milliseconds passed since last spawn
         this.spawnTimer = 0;
 
-        // previous pattern chosen
-        this.previousOne = 2;
+        // the number of waves between difficulty increases
+        this.rampRate = 4;
 
+        // keep track of the number of waves
+        this.waveNumber = 0;
+
+        // track run distance
         this.distanceTraveled = 0;
 
         let distanceConfig = {
@@ -156,6 +163,14 @@ class Play extends Phaser.Scene {
             lane = Phaser.Math.RND.pick(lanes.filter((value) => {return value != lane}));
             this.spawnWalker(lane);
         }
+
+        // ramp up difficulty every few waves based on rampRate
+        if (this.timeToRamp()) {
+            this.spawnRate -= 200;
+            console.log(this.spawnRate);
+        }
+
+        this.waveNumber++;
     }
 
     // spawns 1 walker in a specified lane
@@ -170,4 +185,7 @@ class Play extends Phaser.Scene {
         return Math.round(Math.random());
     }
 
+    timeToRamp() {
+        return (this.spawnRate > this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
+    }
 }
