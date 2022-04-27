@@ -35,7 +35,7 @@ class Play extends Phaser.Scene {
         // racoon animation config
         this.anims.create({
             key: 'raccoon_walk',
-            frames: this.anims.generateFrameNumbers('raccoon', { start: 0, end: 4, first: 0}),
+            frames: this.anims.generateFrameNumbers('raccoon', { start: 0, end: 3, first: 0}),
             frameRate: 4,
             repeat: -1,
             showOnStart: true,
@@ -49,9 +49,6 @@ class Play extends Phaser.Scene {
         // send first two enemies immediately
         this.spawnWalker(this.sidewalk.left);
         this.spawnWalker(this.sidewalk.right);
-
-        for (let walker of this.walkers)
-            walker.anims.play('raccoon_walk');
 
         this.gameOver = false;
 
@@ -159,21 +156,18 @@ class Play extends Phaser.Scene {
             lane = Phaser.Math.RND.pick(lanes.filter((value) => {return value != lane}));
             this.spawnWalker(lane);
         }
-        
-        // play walk animation
-        for (let walker of this.walkers) {
-            if (walker.anims)
-                walker.anims.play('raccoon_walk');
-        }
     }
 
     // spawns 1 walker in a specified lane
     spawnWalker(lane) {
-        this.walkers.push(new Walker(this, lane).setOrigin(0,0));
+        let walker = new Walker(this, lane).setOrigin(0,0);
+        this.walkers.push(walker);
+        walker.anims.play('raccoon_walk');
     }
 
     // decides whether to spawn 2 walkers
     shouldSpawn2() {
         return Math.round(Math.random());
     }
+
 }
