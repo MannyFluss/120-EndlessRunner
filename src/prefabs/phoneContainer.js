@@ -12,8 +12,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
         scene.add.existing(this);
 
         this.textConfigPlayer = {
-            fontFamily: 'Tickerbit',
-            fontSize: '16px',
+            fontFamily: 'Helvetica Neue',
+            fontSize: '14px',
             backgroundColor: '#1982FC',
             color: '#FFFFFF',
             align: 'right',
@@ -26,9 +26,9 @@ class PhoneContainer extends Phaser.GameObjects.Container
             //fixedWidth: 100
         }
         this.textConfigMom = {
-            fontFamily: 'Tickerbit',
-            fontSize: '16px',
-            backgroundColor: '#808080',
+            fontFamily: 'Helvetica Neue',
+            fontSize: '14px',
+            backgroundColor: '#dddddd',
             color: '#000000',
             align: 'left',
             padding: {
@@ -40,9 +40,9 @@ class PhoneContainer extends Phaser.GameObjects.Container
             
         }
         this.ghostTextConfig = {
-            fontFamily: 'Tickerbit',
-            fontSize: '16px',
-            color: '#000000',
+            fontFamily: 'Helvetica Neue',
+            fontSize: '14px',
+            color: '#666666',
             align: 'left',
             padding: {
             top: 5,
@@ -53,9 +53,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
             fixedWidth: 200
         }
         this.enterTextConfig = {
-            fontFamily: 'Tickerbit',
-            fontSize: '16px',
-            strong : 20,
+            fontFamily: 'Helvetica Neue',
+            fontSize: '14px',
             color: '#1982FC',
             align: 'left',
             padding: {
@@ -79,7 +78,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "if you dont respond big trouble",
             "hello this is pizza hut",
             "what is your opinion on the mayor",
-            "heyyyyyyyyyyyyyyyyyyyyyyy",
+            "heyyyyyyyyyyyyyyyyyyyyy",
             "communism?",
             "this is your final final warning."
         ]
@@ -94,8 +93,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
         this.setSize(300,300);
         this.playerText = "";
         this.ghostText = this.createNewMessage();
-        this.playerTextDisplay = scene.add.text(this.containerRef.x+3,this.containerRef.y + 155,this.playerText, this.enterTextConfig).setOrigin(.5,.5);
-        this.ghostTextDisplay = scene.add.text(this.containerRef.x+3,this.containerRef.y + 155,this.ghostText, this.ghostTextConfig).setOrigin(.5,.5);
+        this.playerTextDisplay = scene.add.text(this.containerRef.x+6,this.containerRef.y + 155,this.playerText, this.enterTextConfig).setOrigin(.5,.5);
+        this.ghostTextDisplay = scene.add.text(this.containerRef.x+6,this.containerRef.y + 155,this.ghostText, this.ghostTextConfig).setOrigin(.5,.5);
         this.add([this.containerRef,this.ghostTextDisplay,this.playerTextDisplay]);
 
         scene.input.keyboard.on('keydown', (event) => {
@@ -123,22 +122,19 @@ class PhoneContainer extends Phaser.GameObjects.Container
 
     updateTextMessage(container, text='default text', playerBool=true)
     {
-
-        let FONT;
-        if (playerBool)
-        {
-            FONT = this.textConfigPlayer;
-        }else{FONT=this.textConfigMom;}
-        var newMessage = this.sceneRef.add.text(-20,100,text,FONT).setOrigin(.5,.5);
-        newMessage.setWordWrapWidth(200);
-        if (playerBool == true)
-        {
-            newMessage.x = 20;
+        let FONT = playerBool ? this.textConfigPlayer : this.textConfigMom;
+        let newMessage;
+        if (playerBool) {
+            newMessage = this.sceneRef.add.text(82,100,text,this.textConfigPlayer).setOrigin(1,.5);
+        } else {
+            newMessage = this.sceneRef.add.text(-120,100,text,this.textConfigMom).setOrigin(0,.5);
         }
+
+        newMessage.setWordWrapWidth(200);
         //this is not working?
         for (var i=1;i < container.list.length;i++)
         {            
-            container.list[i].y -=  30;
+            container.list[i].y -= 30;
         }
         container.addAt(newMessage,1);
         Phaser.Utils.Array.AddAt(container.list,newMessage,1);
