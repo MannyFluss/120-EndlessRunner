@@ -25,8 +25,8 @@ class Play extends Phaser.Scene {
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
 
         //phone and its assets
-        this.thePhone = new Phone(this, 0, 0 ,'phoneTexture')
-        this.phoneInput = new PhoneContainer(this,50,50);
+        this.thePhone = new Phone(this, -20, 0 ,'phoneTexture')
+        this.phoneInput = new PhoneContainer(this, 316, 120);
         this.phoneInput.containerRef.add(this.thePhone);
 
         // player sprite

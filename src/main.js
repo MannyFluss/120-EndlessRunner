@@ -1,6 +1,6 @@
 let config = {
     type: Phaser.CANVAS,
-    width: 444,
+    width: 128*6, // street.png width * export resize factor
     height: 480,
     scene : [Play,mannyDebug ]
 }
