@@ -85,8 +85,6 @@ class PhoneContainer extends Phaser.GameObjects.Container
 
         //this.playerTextDisplay.text = ""
         this.setSize(300,300);
-        this.setInteractive();
-        scene.input.setDraggable(this);
         this.playerText = "";
         this.ghostText = this.createNewMessage();
         this.playerTextDisplay = scene.add.text(this.containerRef.x,this.containerRef.y + 130,this.ghostText, this.enterTextConfig).setOrigin(.5,.5);
