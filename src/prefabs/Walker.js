@@ -1,6 +1,6 @@
 class Walker extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y=-32, texture='raccoon_sheet', frame) {
+    constructor(scene, x, y=-32, texture='raccoon', frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         
