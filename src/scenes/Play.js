@@ -95,6 +95,15 @@ class Play extends Phaser.Scene {
         this.highScoreText = this.add.text(0, this.distanceText.height, "Farthest Traveled: " + highScore + " m", highScoreConfig);
 
     }
+    
+    //this will trigger whenever the phone text is successful
+    //ad ms to spawnrt for each text
+    //update future bar intensity here
+    recieveSignal()
+    {   
+        this.spawnRate += 200;
+
+    }
 
     // need timer as an argument to get access to delta
     // since delta is the second argumnt

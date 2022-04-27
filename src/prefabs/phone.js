@@ -14,7 +14,7 @@ class Phone extends Phaser.GameObjects.Sprite
 
     create()
     {
-        console.log("test")
+//        console.log("test")
         //const testMessage = new Message(this,0,0,true,"this is a sample message");
         //this.add.existing(testMessage);
     }
