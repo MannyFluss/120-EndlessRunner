@@ -74,7 +74,14 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "and","because","phone","quinn","colorado"
         ]
         this.momMessages = [//max char len 29
-            "sample mom message aaaaaa ",
+            "what is the derivative of x?",
+            "you need to answer me now.",
+            "if you dont respond big trouble",
+            "hello this is pizza hut",
+            "what is your opinion on the mayor",
+            "heyyyyyyyyyyyyyyyyyyyyyyy",
+            "communism?",
+            "this is your final final warning."
         ]
         
         
@@ -165,7 +172,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
         }
         if (this.playerText==this.ghostText)
         {
-            
+            this.sendSignal();
             this.updateTextMessage(this.containerRef,this.playerText,true);
             this.momSendMessage();
             this.ghostText = this.createNewMessage(); //insert message generator here
@@ -215,6 +222,10 @@ class PhoneContainer extends Phaser.GameObjects.Container
         let textMsg = this.momMessages[Math.floor(Math.random()*this.momMessages.length)];
         this.updateTextMessage(this.containerRef,textMsg,false);
 
+    }
+    sendSignal()
+    {
+        this.sceneRef.recieveSignal();
     }
 
 }
