@@ -50,8 +50,8 @@ class Play extends Phaser.Scene {
         this.walkers = [];
 
         // send first two enemies immediately
-        this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-        this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
+        this.spawnWalker(this.sidewalk.left);
+        this.spawnWalker(this.sidewalk.right);
 
         for (let walker of this.walkers)
             walker.anims.play('raccoon_walk');
@@ -109,7 +109,7 @@ class Play extends Phaser.Scene {
 
         // once spawn reached, spawn in enemies and reset timer
         if (this.spawnTimer >= this.spawnRate) {
-            this.walkerRespawn();
+            this.spawnWave();
             this.spawnTimer = 0;
         }
 
@@ -148,49 +148,34 @@ class Play extends Phaser.Scene {
     }
 
     // respawns enemies
-    walkerRespawn(walkerL, walkerC, walkerR) {
+    spawnWave(walkerL, walkerC, walkerR) {
+    
+        // setup lanes
+        let lanes = [this.sidewalk.left, this.sidewalk.mid, this.sidewalk.right];
         
-        // determines which of 3 patterns will be chosen
-        do {
-            this.whichOne = Math.round(Math.random() * 2);
-        } while (this.whichOne == this.previousOne);
+        // spawn a first raccoon
+        let lane = Phaser.Math.RND.pick(lanes);
+        this.spawnWalker(lane);
 
-        // determines whether to send 1 or 2 enemies
-        if (Math.round(Math.random())) {
-
-            // 3 patterns of sending 2 enemies
-            if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.previousOne = 0;
-            } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 1;
-            } else {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 2;
-            }
-        } else {
-
-            // 3 patterns of sending 1 enemy
-            if (this.whichOne == 0) {
-                this.walkers.push(new Walker(this, this.sidewalk.left).setOrigin(0,0));
-                this.previousOne = 0;
-            } else if (this.whichOne == 1) {
-                this.walkers.push(new Walker(this, this.sidewalk.mid).setOrigin(0,0));
-                this.previousOne = 1;
-            } else {
-                this.walkers.push(new Walker(this, this.sidewalk.right).setOrigin(0,0));
-                this.previousOne = 2;
-            }
+        // spawn a second raccoon
+        if (this.shouldSpawn2()) {
+            lane = Phaser.Math.RND.pick(lanes.filter((value) => {return value != lane}));
+            this.spawnWalker(lane);
         }
-
+        
         // play walk animation
         for (let walker of this.walkers) {
             if (walker.anims)
                 walker.anims.play('raccoon_walk');
         }
+    }
+
+    spawnWalker(lane) {
+        this.walkers.push(new Walker(this, lane).setOrigin(0,0));
+    }
+
+    shouldSpawn2() {
+        // coin flip
+        return Math.round(Math.random());
     }
 }
