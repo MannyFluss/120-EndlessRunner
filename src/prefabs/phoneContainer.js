@@ -78,6 +78,13 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "if you dont respond big trouble",
             "hello this is pizza hut",
             "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
+            "what is your opinion on the mayor",
             "heyyyyyyyyyyyyyyyyyyyyy",
             "communism?",
             "this is your final final warning."
@@ -125,9 +132,9 @@ class PhoneContainer extends Phaser.GameObjects.Container
         let FONT = playerBool ? this.textConfigPlayer : this.textConfigMom;
         let newMessage;
         if (playerBool) {
-            newMessage = this.sceneRef.add.text(82,100,text,this.textConfigPlayer).setOrigin(1,.5);
+            newMessage = this.sceneRef.add.text(82,110,text,this.textConfigPlayer).setOrigin(1,.5);
         } else {
-            newMessage = this.sceneRef.add.text(-120,100,text,this.textConfigMom).setOrigin(0,.5);
+            newMessage = this.sceneRef.add.text(-120,110,text,this.textConfigMom).setOrigin(0,.5);
         }
 
         newMessage.setWordWrapWidth(200);
@@ -139,7 +146,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
         container.addAt(newMessage,1);
         Phaser.Utils.Array.AddAt(container.list,newMessage,1);
         //console.log(container.list[container.list.length-1].y);
-        if (container.list[container.list.length-1].y < -70)
+        if (container.list[container.list.length-1].y < -50)
         {
             var to_remove = container.list[container.list.length-1];
             Phaser.Utils.Array.Remove(container.list,container.list[container.list.length-1]);
