@@ -1,8 +1,13 @@
+let canvasStyle = " \
+border-radius: 10px; \
+"
+
 let config = {
     type: Phaser.CANVAS,
     width: 128*6, // street.png width * export resize factor
     height: 480,
-    scene : [Play,mannyDebug ]
+    canvasStyle: canvasStyle,
+    scene : [Play, mannyDebug ]
 }
 
 // declare keys
