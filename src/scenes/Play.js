@@ -6,8 +6,9 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.audio('sfx_lanechange', 'assets/placeholder_lanechange.wav');
         this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
-
+        
         this.load.image('sidewalk', 'assets/street.png');
+        this.load.image('distract-text', './assets/distract-o-meter-text.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
@@ -24,9 +25,10 @@ class Play extends Phaser.Scene {
 
         // background sprite
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
+        this.distractText = new BasicSprite(this, 100, 100, 'distract-text').setOrigin(0,0);
 
         //phone and its assets
-        this.thePhone = new Phone(this, -20, 0 ,'phoneTexture')
+        this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
         this.phoneInput = new PhoneContainer(this, 316, 120);
         this.phoneInput.containerRef.add(this.thePhone);
 
