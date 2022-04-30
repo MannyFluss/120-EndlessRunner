@@ -33,8 +33,7 @@ class Play extends Phaser.Scene {
         this.distractText = new BasicSprite(this, 820, 40, 'distracted').setOrigin(0,0);
         this.mischeivousText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
         this.distractHolder = new BasicSprite(this, 770, 40, 'distract-holder').setOrigin(0,0);
-        this.distractMeter = new Meter(this, 776, 436, 18, 390, 'distract-measure').setOrigin(0,1);
-        this.distractMeter.set(.5);
+        this.distractMeter = new Meter(this, 776, 437, 18, 391, 'distract-measure').setOrigin(0,1);
 
         //phone and its assets
         this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
@@ -77,7 +76,10 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // milliseconds between spawns
-        this.spawnRate = 2000;
+        this.spawnRate = 1800;
+
+        // slowest allowed spawn rate
+        this.maxSpawnRate = 2000;
 
         // fastest allowed spawn rate
         this.minSpawnRate = 1000;
@@ -118,6 +120,7 @@ class Play extends Phaser.Scene {
         }
         this.highScoreText = this.add.text(0, this.distanceText.height, "Farthest Traveled: " + highScore + " m", highScoreConfig);
 
+        this.distractMeter.set(this.spawnRateToMeter());
     }
     
     //this will trigger whenever the phone text is successful
@@ -125,8 +128,10 @@ class Play extends Phaser.Scene {
     //update future bar intensity here
     recieveSignal()
     {   
-        this.spawnRate += 200;
-
+        if (this.spawnRate < this.maxSpawnRate) {
+            this.spawnRate += 200;
+            this.distractMeter.set(this.spawnRateToMeter());
+        }
     }
 
     // need timer as an argument to get access to delta
@@ -200,7 +205,7 @@ class Play extends Phaser.Scene {
         // ramp up difficulty every few waves based on rampRate
         if (this.timeToRamp()) {
             this.spawnRate -= 200;
-            console.log(this.spawnRate);
+            this.distractMeter.set(this.spawnRateToMeter());
         }
 
         this.waveNumber++;
@@ -220,5 +225,9 @@ class Play extends Phaser.Scene {
 
     timeToRamp() {
         return (this.spawnRate > this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
+    }
+
+    spawnRateToMeter() {
+        return .05 + ((1 - .05) / (this.maxSpawnRate - this.minSpawnRate)) * (this.spawnRate - this.minSpawnRate);
     }
 }
