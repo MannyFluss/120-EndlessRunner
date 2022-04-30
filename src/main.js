@@ -7,7 +7,8 @@ let config = {
     width: 188*6, // street.png width * export resize factor
     height: 480,
     scene : [MainMenu, Play,mannyDebug],
-    backgroundColor : "#1982FC"
+    backgroundColor : "#1982FC",
+    canvasStyle: canvasStyle
 }
 
 // declare keys
