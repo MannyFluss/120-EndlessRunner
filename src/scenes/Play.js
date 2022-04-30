@@ -8,14 +8,15 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
         
         this.load.image('sidewalk', 'assets/street.png');
-        this.load.image('distract-text', './assets/distract-o-meter-text.png');
+        this.load.image('distracted', './assets/distracted.png');
+        this.load.image('mischievous', './assets/mischievous.png');
         this.load.image('distract-meter', './assets/distract-o-meter.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('red-panda', 'assets/red-panda-behind-sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('red-panda', 'assets/red-panda-behind-Sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
     }
 
     create() {
@@ -26,8 +27,9 @@ class Play extends Phaser.Scene {
 
         // background sprite
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
-        this.distractText = new BasicSprite(this, 100, 100, 'distract-text').setOrigin(0,0);
-        this.distractMeter = new BasicSprite(this, 10, 10, 'distract-meter').setOrigin(0,0);
+        this.distractText = new BasicSprite(this, 820, 40, 'distracted').setOrigin(0,0);
+        this.distractText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
+        this.distractMeter = new BasicSprite(this, 770, 40, 'distract-meter').setOrigin(0,0);
 
         //phone and its assets
         this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
@@ -127,7 +129,7 @@ class Play extends Phaser.Scene {
     update(timer, delta) {
 
         // scroll sidewalk
-        this.sidewalk.tilePositionY -= 1.5;
+        this.sidewalk.tilePositionY -= 1.35;
 
         // delta is innate Phaser thing that counts milliseconds between updates
         this.spawnTimer += delta;
