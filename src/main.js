@@ -2,11 +2,11 @@ let config = {
     type: Phaser.CANVAS,
     width: 128*6, // street.png width * export resize factor
     height: 480,
-    scene : [Play,mannyDebug ]
+    scene : [MainMenu, Play,mannyDebug]
 }
 
 // declare keys
-let keyLEFT, keyRIGHT;
+let keyLEFT, keyRIGHT, keySTART;
 
 // set UI sizes
 let game = new Phaser.Game(config);
