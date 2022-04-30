@@ -10,7 +10,8 @@ class Play extends Phaser.Scene {
         this.load.image('sidewalk', 'assets/street.png');
         this.load.image('distracted', './assets/distracted.png');
         this.load.image('mischievous', './assets/mischievous.png');
-        this.load.image('distract-meter', './assets/distract-o-meter.png');
+        this.load.image('distract-holder', './assets/distract-o-meter.png');
+        this.load.image('distract-measure', './assets/distract-measure.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
@@ -27,9 +28,13 @@ class Play extends Phaser.Scene {
 
         // background sprite
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
+        
+        // distract-o-meter sprites
         this.distractText = new BasicSprite(this, 820, 40, 'distracted').setOrigin(0,0);
-        this.distractText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
-        this.distractMeter = new BasicSprite(this, 770, 40, 'distract-meter').setOrigin(0,0);
+        this.mischeivousText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
+        this.distractHolder = new BasicSprite(this, 770, 40, 'distract-holder').setOrigin(0,0);
+        this.distractMeter = new Meter(this, 776, 436, 18, 390, 'distract-measure').setOrigin(0,1);
+        this.distractMeter.set(.5);
 
         //phone and its assets
         this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
