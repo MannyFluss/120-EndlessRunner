@@ -11,6 +11,20 @@ class MainMenu extends Phaser.Scene {
     }
     create()
     {
+        this.menuTextConfig = {
+            fontFamily: 'Tickerbit',
+            fontSize: '16px',
+            backgroundColor: '#1982FC',
+            color: '#FFFFFF',
+            padding: {
+            top: 5,
+            bottom: 5,
+            right: 2,
+            left: 2
+            },
+            //fixedWidth: 100
+        }
+
         this.controlsTXT = 'controls: \n <- and -> to move raccoon \n ' +
                             'type any key to type into phone\n' +
                             'press enter to clear your current text\n' +
@@ -57,10 +71,10 @@ class MainMenu extends Phaser.Scene {
             this.spriteList[i].setScale(Phaser.Math.FloatBetween(.35, .8));
         }
 
-        this.add.text(384,380,"press space to start").setOrigin(.5,.5);
-        this.add.text(384,100,"working title").setOrigin(.5,.5);
-        this.add.text(128*1.5,128*1.25,this.controlsTXT).setOrigin(.5,.5);
-        this.add.text(640,128*1.25,this.creditsTXT).setOrigin(.5,.5);
+        this.add.text(384,380,"press space to start",this.menuTextConfig).setOrigin(.5,.5);
+        this.add.text(384,100,"working title",this.menuTextConfig).setOrigin(.5,.5);
+        this.add.text(128*1.5,128*1.25,this.controlsTXT,this.menuTextConfig).setOrigin(.5,.5);
+        this.add.text(640,128*1.25,this.creditsTXT,this.menuTextConfig).setOrigin(.5,.5);
         
 
 

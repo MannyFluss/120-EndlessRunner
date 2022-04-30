@@ -2,7 +2,8 @@ let config = {
     type: Phaser.CANVAS,
     width: 128*6, // street.png width * export resize factor
     height: 480,
-    scene : [MainMenu, Play,mannyDebug]
+    scene : [MainMenu, Play,mannyDebug],
+    backgroundColor : "#1982FC"
 }
 
 // declare keys
