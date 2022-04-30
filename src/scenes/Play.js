@@ -6,14 +6,18 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.audio('sfx_lanechange', 'assets/placeholder_lanechange.wav');
         this.load.audio('sfx_bump', 'assets/placeholder_bump.wav');
-
+        
         this.load.image('sidewalk', 'assets/street.png');
+        this.load.image('distracted', './assets/distracted.png');
+        this.load.image('mischievous', './assets/mischievous.png');
+        this.load.image('distract-holder', './assets/distract-o-meter.png');
+        this.load.image('distract-measure', './assets/distract-measure.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 3});
-        this.load.spritesheet('red-panda', 'assets/red-panda-behind-sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('red-panda', 'assets/red-panda-behind-Sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
     }
 
     create() {
@@ -24,9 +28,15 @@ class Play extends Phaser.Scene {
 
         // background sprite
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
+        
+        // distract-o-meter sprites
+        this.distractText = new BasicSprite(this, 820, 40, 'distracted').setOrigin(0,0);
+        this.mischeivousText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
+        this.distractHolder = new BasicSprite(this, 770, 40, 'distract-holder').setOrigin(0,0);
+        this.distractMeter = new Meter(this, 776, 437, 18, 391, 'distract-measure').setOrigin(0,1);
 
         //phone and its assets
-        this.thePhone = new Phone(this, -20, 0 ,'phoneTexture')
+        this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
         this.phoneInput = new PhoneContainer(this, 316, 120);
         this.phoneInput.containerRef.add(this.thePhone);
 
@@ -66,7 +76,10 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // milliseconds between spawns
-        this.spawnRate = 2000;
+        this.spawnRate = 1800;
+
+        // slowest allowed spawn rate
+        this.maxSpawnRate = 2000;
 
         // fastest allowed spawn rate
         this.minSpawnRate = 1000;
@@ -107,6 +120,7 @@ class Play extends Phaser.Scene {
         }
         this.highScoreText = this.add.text(0, this.distanceText.height, "Farthest Traveled: " + highScore + " m", highScoreConfig);
 
+        this.distractMeter.set(this.spawnRateToMeter());
     }
     
     //this will trigger whenever the phone text is successful
@@ -114,8 +128,10 @@ class Play extends Phaser.Scene {
     //update future bar intensity here
     recieveSignal()
     {   
-        this.spawnRate += 200;
-
+        if (this.spawnRate < this.maxSpawnRate) {
+            this.spawnRate += 200;
+            this.distractMeter.set(this.spawnRateToMeter());
+        }
     }
 
     // need timer as an argument to get access to delta
@@ -123,7 +139,7 @@ class Play extends Phaser.Scene {
     update(timer, delta) {
 
         // scroll sidewalk
-        this.sidewalk.tilePositionY -= 1.5;
+        this.sidewalk.tilePositionY -= 1.35;
 
         // delta is innate Phaser thing that counts milliseconds between updates
         this.spawnTimer += delta;
@@ -189,7 +205,7 @@ class Play extends Phaser.Scene {
         // ramp up difficulty every few waves based on rampRate
         if (this.timeToRamp()) {
             this.spawnRate -= 200;
-            console.log(this.spawnRate);
+            this.distractMeter.set(this.spawnRateToMeter());
         }
 
         this.waveNumber++;
@@ -209,5 +225,9 @@ class Play extends Phaser.Scene {
 
     timeToRamp() {
         return (this.spawnRate > this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
+    }
+
+    spawnRateToMeter() {
+        return .05 + ((1 - .05) / (this.maxSpawnRate - this.minSpawnRate)) * (this.spawnRate - this.minSpawnRate);
     }
 }
