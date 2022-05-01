@@ -1,0 +1,94 @@
+{
+    "frames": {
+        "Raccoon1": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "sourceSize": {
+                "w": 36,
+                "h": 48
+            }
+        },
+        "Raccoon2": {
+            "frame": {
+                "x": 37,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "sourceSize": {
+                "w": 36,
+                "h": 48
+            }
+        },
+        "Raccoon3": {
+            "frame": {
+                "x": 0,
+                "y": 49,
+                "w": 36,
+                "h": 45
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 45
+            },
+            "sourceSize": {
+                "w": 36,
+                "h": 45
+            }
+        },
+        "Raccoon4": {
+            "frame": {
+                "x": 37,
+                "y": 49,
+                "w": 36,
+                "h": 45
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 45
+            },
+            "sourceSize": {
+                "w": 36,
+                "h": 45
+            }
+        }
+    },
+    "meta": {
+        "app": "https://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.4",
+        "image": "RaccoonAtlas.png",
+        "size": {
+            "w": 73,
+            "h": 94
+        },
+        "scale": 1
+    }
+}

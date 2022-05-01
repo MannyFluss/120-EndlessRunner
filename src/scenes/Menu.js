@@ -7,10 +7,22 @@ class MainMenu extends Phaser.Scene {
         let raccoonResize = 3;
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 4});
+        this.load.atlas('raccoonAtlas','./assets/RaccoonAtlas.png','./assets/raccoon.json');
 
     }
     create()
     {
+        //atlas implementation
+        const animConfig = {
+            key: 'animation',
+            frames: 'raccoonAtlas',
+            frameRate: 3,
+            repeat: -1,
+        };
+        this.anims.create(animConfig);
+        this.raccoonSprite1 = this.add.sprite(125 , Phaser.Math.Between(100, 400) , 'raccoonAtlas').setScale(1.5);
+        this.raccoonSprite1.play('animation');
+
         this.menuTextConfig = {
             fontFamily: 'Tickerbit',
             fontSize: '16px',
@@ -56,7 +68,6 @@ class MainMenu extends Phaser.Scene {
         this.phoneSprite2 = this.add.sprite(100 , 300 , 'phoneTexture').setScale(.65);
         this.phoneSprite1 = this.add.sprite(125 , 100 , 'phoneTexture').setScale(.5);
         Phaser.Math.Between(100, 400)
-        this.raccoonSprite1 = this.add.sprite(125 , Phaser.Math.Between(100, 400) , 'raccoon').setScale(1.5).anims.play('raccoon_walk');
         this.raccoonSprite2 = this.add.sprite(125 , Phaser.Math.Between(100, 400) , 'raccoon').setScale(2).anims.play('raccoon_walk');
         this.raccoonSprite3 = this.add.sprite(125 , Phaser.Math.Between(100, 400) , 'raccoon').setScale(2).anims.play('raccoon_walk');
         this.raccoonSprite4 = this.add.sprite(125 , Phaser.Math.Between(100, 400) , 'raccoon').setScale(2).anims.play('raccoon_walk');
@@ -72,7 +83,7 @@ class MainMenu extends Phaser.Scene {
         }
 
         this.add.text(384,380,"press space to start",this.menuTextConfig).setOrigin(.5,.5);
-        this.add.text(384,100,"working title",this.menuTextConfig).setOrigin(.5,.5);
+        this.add.text(384,100,"Distraccoon",this.menuTextConfig).setOrigin(.5,.5).setFont(36);
         this.add.text(128*1.5,128*1.25,this.controlsTXT,this.menuTextConfig).setOrigin(.5,.5);
         this.add.text(640,128*1.25,this.creditsTXT,this.menuTextConfig).setOrigin(.5,.5);
         

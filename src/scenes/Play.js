@@ -16,6 +16,8 @@ class Play extends Phaser.Scene {
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
+        
+
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 3});
         this.load.spritesheet('red-panda', 'assets/red-panda-behind-Sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
