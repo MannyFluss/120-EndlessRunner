@@ -12,7 +12,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
         scene.add.existing(this);
 
         this.textConfigPlayer = {
-            fontFamily: 'Helvetica Neue',
+            fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
             backgroundColor: '#1982FC',
             color: '#FFFFFF',
@@ -26,7 +26,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             //fixedWidth: 100
         }
         this.textConfigMom = {
-            fontFamily: 'Helvetica Neue',
+            fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
             backgroundColor: '#dddddd',
             color: '#000000',
@@ -40,7 +40,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             
         }
         this.ghostTextConfig = {
-            fontFamily: 'Helvetica Neue',
+            fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
             color: '#666666',
             align: 'left',
@@ -53,7 +53,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             fixedWidth: 200
         }
         this.enterTextConfig = {
-            fontFamily: 'Helvetica Neue',
+            fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
             color: '#1982FC',
             align: 'left',

@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('mischievous', './assets/mischievous.png');
         this.load.image('distract-holder', './assets/distract-o-meter.png');
         this.load.image('distract-measure', './assets/distract-measure.png');
+        this.load.image('scoreboard', './assets/scoreboard.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('phoneTexture',"./assets/phoneAssets/phone.png");
         
@@ -30,10 +31,10 @@ class Play extends Phaser.Scene {
         this.sidewalk = new Sidewalk(this, 0, 0, game.config.width, game.config.height, 'sidewalk').setOrigin(0,0);
         
         // distract-o-meter sprites
-        this.distractText = new BasicSprite(this, 820, 40, 'distracted').setOrigin(0,0);
-        this.mischeivousText = new BasicSprite(this, 820, 385, 'mischievous').setOrigin(0,0);
-        this.distractHolder = new BasicSprite(this, 770, 40, 'distract-holder').setOrigin(0,0);
-        this.distractMeter = new Meter(this, 776, 437, 18, 391, 'distract-measure').setOrigin(0,1);
+        this.distractHolder = new BasicSprite(this, 780, 50, 'distract-holder').setOrigin(0,0);
+        this.distractMeter = new Meter(this, 786, 266, 18, 210, 'distract-measure').setOrigin(0,1);
+        this.distractText = new BasicSprite(this, 760, 25, 'distracted').setOrigin(0,0);
+        this.mischeivousText = new BasicSprite(this, 760, 230, 'mischievous').setOrigin(0,0);
 
         //phone and its assets
         this.thePhone = new Phone(this, -20, 0 ,'phoneTexture');
@@ -97,28 +98,22 @@ class Play extends Phaser.Scene {
         this.distanceTraveled = 0;
 
         let distanceConfig = {
-            fontFamily: 'Helvetica',
-            fontSize: '25px',
-            color: '#000000',
+            fontFamily: 'Avenir Next Condensed',
+            fontSize: '36px',
+            color: '#202020',
             align: 'right',
             padding: {
                 top: 5,
                 bottom: 5,
             },
         }
-        this.distanceText = this.add.text(0, 0, "Distance Traveled: " + this.distanceTraveled + " m", distanceConfig);
 
-        let highScoreConfig = {
-            fontFamily: 'Helvetica',
-            fontSize: '25px',
-            color: '#000000',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-        }
-        this.highScoreText = this.add.text(0, this.distanceText.height, "Farthest Traveled: " + highScore + " m", highScoreConfig);
+        // scoreboard sprite
+        let scoreboardX = 770;
+        let scoreboardY = game.config.height-35;
+        this.scoreboard = new BasicSprite(this, scoreboardX, scoreboardY, 'scoreboard').setOrigin(0,1);
+        this.distanceText = this.add.text(scoreboardX+170, scoreboardY-125, this.distanceTraveled + " m", distanceConfig);
+        this.highScoreText = this.add.text(scoreboardX+145, scoreboardY-125 + 60, highScore + " m", distanceConfig);
 
         this.distractMeter.set(this.spawnRateToMeter());
     }
@@ -144,7 +139,7 @@ class Play extends Phaser.Scene {
         // delta is innate Phaser thing that counts milliseconds between updates
         this.spawnTimer += delta;
         this.distanceTraveled += delta / 250;
-        this.distanceText.text = "Distance Traveled: " + Math.round(this.distanceTraveled) + " m";
+        this.distanceText.text = Math.round(this.distanceTraveled) + " m";
 
         // once spawn reached, spawn in enemies and reset timer
         if (this.spawnTimer >= this.spawnRate) {
