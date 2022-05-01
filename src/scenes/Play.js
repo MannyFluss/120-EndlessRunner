@@ -19,9 +19,20 @@ class Play extends Phaser.Scene {
         let raccoonResize = 3;
         this.load.spritesheet('raccoon', 'assets/raccoon-sheet.png', {frameWidth: 12*raccoonResize, frameHeight: 16*raccoonResize, startFrame: 0, endFrame: 3});
         this.load.spritesheet('red-panda', 'assets/red-panda-behind-Sheet.png', {frameWidth: 9*raccoonResize, frameHeight: 15*raccoonResize, startFrame: 0, endFrame: 7});
+    
+        // load music
+        this.load.audio("music", ["./assets/texting-raccoons.mp3"]);
     }
 
     create() {
+        // start music
+        this.music = this.sound.add("music", { loop: true });
+        this.music.setVolume(.5);
+        this.music.play();
+
+        // setup sound effect
+        this.sfx_bump = this.sound.add('sfx_bump');
+        this.sfx_bump.setVolume(.4);
 
         // movement keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -158,10 +169,11 @@ class Play extends Phaser.Scene {
         // iterate through enemy container to check for collisions and, if so, death
         for (let i = 0; i < this.walkers.length; i++) {
             if (this.checkCollision(this.player, this.walkers[i])) {
-                this.sound.play('sfx_bump');
+                this.sfx_bump.play();
                 if(this.distanceTraveled > highScore) {
                     highScore = Math.round(this.distanceTraveled);
                 }
+                this.music.stop();
                 this.scene.restart();
             }
         }
