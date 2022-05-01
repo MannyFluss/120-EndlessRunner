@@ -12,6 +12,7 @@ class MainMenu extends Phaser.Scene {
     }
     create()
     {
+        //atlas implementation
         const animConfig = {
             key: 'animation',
             frames: 'raccoonAtlas',
@@ -82,7 +83,7 @@ class MainMenu extends Phaser.Scene {
         }
 
         this.add.text(384,380,"press space to start",this.menuTextConfig).setOrigin(.5,.5);
-        this.add.text(384,100,"working title",this.menuTextConfig).setOrigin(.5,.5);
+        this.add.text(384,100,"Distraccoon",this.menuTextConfig).setOrigin(.5,.5).setFont(36);
         this.add.text(128*1.5,128*1.25,this.controlsTXT,this.menuTextConfig).setOrigin(.5,.5);
         this.add.text(640,128*1.25,this.creditsTXT,this.menuTextConfig).setOrigin(.5,.5);
         
