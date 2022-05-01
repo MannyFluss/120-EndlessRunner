@@ -1,3 +1,11 @@
+// Distracction
+// Manny Fluss, Benjamin Paulsen, and Manas Sara
+// Date Completed: 5/1/22
+
+// Creative Tilt:
+// Technical: We are super proud of the system we came up with for texting the raccoons. We created a great looking phone messaging app, which gives the player a randomly generated prompt to copy and highlights the letters as they type. When the player enters the prompt correctly, it is sent as a message and the raccoons will give a randomized reply. This was definitely beyond the examples shown in class and makes our game's message about distracted texting really come through.
+// Visual: We put a lot of effort into the game's sprites, animations, and music to make it cute and visually appealing. Everything you see and hear is custom made, with the exception of a built-in font in a few places. We wanted the assets to live up to the goofy premise of an army of raccoons with a texting addiction.
+
 let canvasStyle = " \
 border-radius: 10px; \
 "
