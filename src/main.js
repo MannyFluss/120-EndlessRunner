@@ -14,7 +14,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 179*6, // street.png width * export resize factor
     height: 480,
-    scene : [TitleScreen, InstructionsOne, InstructionsTwo, MainMenu, Play],
+    scene : [TitleScreen, InstructionsOne, InstructionsTwo, Play],
     backgroundColor : "#F5F5DC",
     canvasStyle: canvasStyle
 }
