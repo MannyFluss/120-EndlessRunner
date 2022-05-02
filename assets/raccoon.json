@@ -22,26 +22,6 @@
         },
         "Raccoon2": {
             "frame": {
-                "x": 37,
-                "y": 0,
-                "w": 36,
-                "h": 48
-            },
-            "rotated": false,
-            "trimmed": false,
-            "spriteSourceSize": {
-                "x": 0,
-                "y": 0,
-                "w": 36,
-                "h": 48
-            },
-            "sourceSize": {
-                "w": 36,
-                "h": 48
-            }
-        },
-        "Raccoon3": {
-            "frame": {
                 "x": 0,
                 "y": 49,
                 "w": 36,
@@ -58,6 +38,26 @@
             "sourceSize": {
                 "w": 36,
                 "h": 45
+            }
+        },
+        "Raccoon3": {
+            "frame": {
+                "x": 37,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 36,
+                "h": 48
+            },
+            "sourceSize": {
+                "w": 36,
+                "h": 48
             }
         },
         "Raccoon4": {
