@@ -233,7 +233,7 @@ class Play extends Phaser.Scene {
     }
 
     timeToRamp() {
-        return (this.spawnRate > this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
+        return (this.spawnRate-200 >= this.minSpawnRate) && (this.waveNumber % this.rampRate == 0);
     }
 
     spawnRateToMeter() {
