@@ -24,7 +24,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             left: 2
             },
             //fixedWidth: 100
-        }
+        };
         this.textConfigMom = {
             fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
@@ -38,7 +38,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             left: 2
             },
             
-        }
+        };
         this.ghostTextConfig = {
             fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
@@ -51,7 +51,7 @@ class PhoneContainer extends Phaser.GameObjects.Container
             left: 2
             },
             fixedWidth: 200
-        }
+        };
         this.enterTextConfig = {
             fontFamily: 'Avenir Next Condensed',
             fontSize: '14px',
@@ -64,24 +64,29 @@ class PhoneContainer extends Phaser.GameObjects.Container
             left: 2
             },
             fixedWidth: 200
-        }
+        };
 
-        this.wordList = [
-            "word","is","here","gamer","a",
-            "sample","text","the","help","running",
-            "establish","mono","best","or",
-            "and","because","phone","quinn","colorado"
-        ]
-        this.momMessages = [//max char len 29
-            "what is the derivative of x?",
-            "you need to answer me now.",
+        this.subjects = [
+            "raccoons","we","red pandas","the city","gamers",
+        ];
+        this.verbs = [
+            "are","eat","love","want","hate","have","like",
+        ];
+        this.adjectives = [
+            "bros","chill","trash","cringe","brains",
+        ];
+
+        this.momMessages = [
+            "we are coming",
             "if you dont respond big trouble",
             "hello this is pizza hut",
             "what is your opinion on the mayor",
             "heyyyyyyyyyyyyyyyyyyyyy",
-            "communism?",
-            "this is your final final warning."
-        ]
+            "*raccoon noises*",
+            "meow",
+            "*teleports behind u*",
+            "nothin personnel kid",
+        ];
         
         
         this.active = true;
@@ -197,19 +202,11 @@ class PhoneContainer extends Phaser.GameObjects.Container
     createNewMessage(wordCount=3)
     {
         let to_return = "";
-        for(let i=0;i<wordCount;i++)
-        {
-            let random_word = this.wordList[Math.floor(Math.random()*this.wordList.length)];
-            if (i == wordCount-1)
-            {
-                to_return = to_return + random_word;
-                break;
-            }else
-            {
-                to_return = to_return + random_word + " ";
-            }
-        }
         
+        to_return += this.subjects[Math.floor(Math.random()*this.subjects.length)] + " ";
+        to_return += this.verbs[Math.floor(Math.random()*this.verbs.length)] + " ";
+        to_return += this.adjectives[Math.floor(Math.random()*this.adjectives.length)];
+            
         return to_return;
     }
 
