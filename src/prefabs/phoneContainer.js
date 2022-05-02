@@ -67,13 +67,13 @@ class PhoneContainer extends Phaser.GameObjects.Container
         };
 
         this.subjects = [
-            "raccoons","we","red pandas","the city","gamers",
+            "raccoons","we","red pandas","gamers","you",
         ];
         this.verbs = [
             "are","eat","love","want","hate","have","like",
         ];
         this.adjectives = [
-            "bros","chill","trash","cringe","brains",
+            "bros","chill","trash","cringe","brains","the city","cool",
         ];
 
         this.momMessages = [
@@ -86,6 +86,8 @@ class PhoneContainer extends Phaser.GameObjects.Container
             "meow",
             "*teleports behind u*",
             "nothin personnel kid",
+            "texty texty",
+            "this is our sidewalk now",
         ];
         
         
