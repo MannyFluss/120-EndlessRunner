@@ -90,7 +90,7 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // milliseconds between spawns
-        this.spawnRate = 1800;
+        this.spawnRate = 2000;
 
         // slowest allowed spawn rate
         this.maxSpawnRate = 2000;
@@ -137,7 +137,7 @@ class Play extends Phaser.Scene {
     recieveSignal()
     {   
         if (this.spawnRate < this.maxSpawnRate) {
-            this.spawnRate += 200;
+            this.spawnRate += 150;
             this.distractMeter.set(this.spawnRateToMeter());
         }
     }
